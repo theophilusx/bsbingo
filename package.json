@@ -1,0 +1,19 @@
+{
+  "name": "bsbingo",
+  "version": "0.0.1",
+  "description": "Bullshit Bingo Game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Game",
+    "Learning",
+    "Javascript"
+  ],
+  "author": "Tim Cross",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}
