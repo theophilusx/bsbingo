@@ -112,13 +112,13 @@ function getGameWords(wordArray, size, blanks) {
     while (gameSet.size < size) {
         gameSet.add(getRandomInt(min, max));
     }
-        for (let id of gameSet) {
-        gameWords.push(bingoWordArray[id]);
+    for (let id of gameSet) {
+        gameWords.push(wordArray[id]);
     }
 
     // We want some word slots to be blank
     while (blankSet.size < blanks) {
-        blankSet.add(getRandomInt(min, blanks));
+        blankSet.add(getRandomInt(min, size));
     }
     for (let id of blankSet) {
         gameWords[id] = 'blank';
@@ -136,16 +136,14 @@ getWordList('bsbingo.words')
     bingoWords = words;
     console.log(`Read in ${bingoWords.length} bingo words`);
 })
-.then(function() {
-    // ready to play - listen for request from renderer
-    ipcMain.on('game-request', function(evt, msg) {
-        var game = getGameWords(bingoWords, 15, 5);
-        evt.sender.send('game-data', JSON.stringify(game));
-    });
-})
 .catch(function(err) {
     console.log(`Error: ${err.message}`);
     ipcMain.on('game-request', function(evt, msg) {
         evt.sender.send(JSON.stringify(`Error: ${err.message}`));
     });
+});
+
+ipcMain.on('game-request', function(evt, msg) {
+    var game = getGameWords(bingoWords, 15, 7);
+    evt.sender.send('game-data', JSON.stringify(game));
 });
