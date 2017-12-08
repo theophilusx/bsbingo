@@ -43,18 +43,23 @@ if (process.env.NODE_ENV != 'production') {
     });
 }
 
-app.on('ready', function() {
+function createMainWindow() {
+    var mainMenu;
+
     mainWindow = new BrowserWindow({});
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
-    }));
-    mainWindow.on('closed', function() {
-        app.quit();
+    }))
+    mainWindow.on('close', function() {
+        // For OSX UX consistency, don't quit
+        // Set window handler to null
+        mainWindow = null;
     });
-
-    // menu
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
-})
+}
+
+app.on('ready', createMainWindow);
+
