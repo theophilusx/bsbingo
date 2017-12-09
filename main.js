@@ -46,7 +46,7 @@ if (process.env.NODE_ENV != 'production') {
 function createMainWindow() {
     var mainMenu;
 
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({width: 900, height: 600});
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
@@ -121,7 +121,7 @@ function getGameWords(wordArray, size, blanks) {
         blankSet.add(getRandomInt(min, size));
     }
     for (let id of blankSet) {
-        gameWords[id] = 'blank';
+        gameWords[id] = undefined;
     }
 
     return gameWords;

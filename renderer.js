@@ -7,6 +7,25 @@ btn.addEventListener('click', function(e) {
     ipcRenderer.send('game-request', 'new-game');
 });
 
+function makeGameCell(data, idx) {
+    let cell = document.createElement('div');
+    if (data === null) {
+        cell.className = 'game-cell blank-cell';
+    } else {
+        if (idx % 2 === 0) {
+            cell.className = `game-cell dark cell-${idx}`;
+        } else {
+            cell.className = `game-cell darkest cell-${idx}`;
+        }
+        let cellData = document.createElement('div');
+        cellData.className = 'cell-data';
+        let cellText = document.createTextNode(data);
+        cellData.appendChild(cellText);
+        cell.appendChild(cellData);
+    }
+    return cell;
+}
+
 ipcRenderer.on('game-data', function(evt, msg) {
     var game = JSON.parse(msg);
     var gameParent = document.querySelector('div.game-data');
@@ -18,10 +37,6 @@ ipcRenderer.on('game-data', function(evt, msg) {
             gameRow.className = 'game-row';
             gameParent.appendChild(gameRow);
         }
-        let cell = document.createElement('div');
-        let cellText = document.createTextNode(game[i]);
-        cell.className = 'game-cell';
-        cell.appendChild(cellText);
-        gameRow.appendChild(cell);
+        gameRow.appendChild(makeGameCell(game[i], i));
     }
 });
