@@ -14,6 +14,6 @@
   "author": "Tim Cross",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.7.9"
+    "electron": "^1.8.1"
   }
 }
