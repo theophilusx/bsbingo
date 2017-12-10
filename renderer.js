@@ -59,18 +59,12 @@ function getCellId(evt) {
         let cellId = evt.target.className
                      .split(' ')
                      .filter(w => w.startsWith('cell-'))[0];
-        console.log('Cell ID string is ' + cellId);
         return cellId;
-    } else {
-        console.log('Cell is not a game or game data cell' +
-                    evt.target.className);
     }
 }
 
 function getCell(evt) {
     var cellId = getCellId(evt);
-
-    console.log(`Cell ID = ${cellId}`);
 
     if (cellId !== undefined) {
         return document.getElementById(cellId);
@@ -86,12 +80,9 @@ gameDiv.addEventListener('click', function(evt) {
     evt.stopPropagation();
     cellElement = getCell(evt);
     if (cellElement !== undefined) {
-        console.log(`Game cell clicked ${evt.target.className}`);
         cellElement.style = 'background-image:url(check-mark.svg);' +
                             'background-position:right bottom;' +
                             'background-size:20px;' +
                             'background-repeat: no-repeat';
-    } else {
-        console.log(`Non-Game Cell Click: ${evt.target.className}`);
     }
 });

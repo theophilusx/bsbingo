@@ -108,18 +108,6 @@ header h2 {
     min-height: 175px;
 }
 
-/* .game-card {
-    width: 90%;
-    padding-top: 10px;
-}
-
-.game-row {
-    margin: auto;
-    overflow: hidden;
-    padding: 0;
-    width: 100%; 
-} */
-
 .game-card {
     display: flex;
     flex-direction: row;
@@ -131,8 +119,6 @@ header h2 {
     width: 20%; 
     padding: 0;
     margin: 0;
-    /* float: left; */
-    /* min-height: 170px; */
     border: 1px solid green;
  }
 

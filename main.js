@@ -140,7 +140,6 @@ getWordList('bsbingo.words')
 .then(function(words) {
     // got word list - store 
     bingoWords = words;
-    console.log(`Read in ${bingoWords.length} bingo words`);
 })
 .catch(function(err) {
     console.log(`Error: ${err.message}`);
