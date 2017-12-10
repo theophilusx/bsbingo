@@ -13,7 +13,9 @@ html {
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
-
+    display: flex;
+    flex-flow: column;
+    min-height: 100Vh;
 }
 
 a {
@@ -47,9 +49,39 @@ h3 {
     margin-top: 0;
 }
 
-footer {
-    font-size: 0.75rem;
-    padding: 20px 0;
+button {
+    padding: 5px;
+    font-size: 1.5rem;
+    margin: 5px;
+    background: #002B36;
+    border-color: green;
+    color: green;
+}
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.logo {
+    width: 10Vw;
+    margin: auto;
+    align-content: center;
+}
+
+.logo-icon {
+    width: 150px;
+    margin: auto;
+    padding: 6px;
+}
+
+.icon-image {
+    width: 120px;
+}
+
+.title {
+    width: 75Vw;
 }
 
 header h1,
@@ -58,15 +90,19 @@ header h2 {
     margin: 0;
 }
 
+
+footer {
+    font-size: 0.75rem;
+    padding: 10px 0;
+}
+
 .center {
     margin: auto;
-    width: 50%;
+    width: 50vw;
     padding: 10px;
 }
 
-.icon-image {
-    width: 128px;
-}
+
 
 .darkest {
     background: #002B36;
@@ -90,29 +126,43 @@ header h2 {
 }
 
 .content {
-    max-width: 90%;
+    max-width: 95Vw;
     margin: 0 auto;
     overflow: hidden;
-    padding: 10px;
+    padding: 5px;
+    flex: 1;
 }
 
-.column-left {
-    width: 30%;
-    float: left;
-    min-height: 175px;
+.dashboard {
+    width: 90vw;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.column-right {
-    width: 67%;
-    float: left;
-    min-height: 175px;
+.dashboard-left {
+    width: 40Vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: space-between;
+}
+
+.dashboard-right {
+    width: 50Vw;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: flex-end;
+    font-size: 2rem;
 }
 
 .game-card {
     display: flex;
     flex-direction: row;
     flex-flow: wrap;
-    margin: 20px;
+    margin: 10px;
 }
 
 .game-cell {
@@ -129,7 +179,6 @@ header h2 {
 }
 
 .blank-cell {
-    /* visibility: hidden; */
     background: linear-gradient(#002B36 70%, #073642 0);
     background-size: 100% 7px;
 }

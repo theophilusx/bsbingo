@@ -7,18 +7,29 @@
     <link rel="stylesheet" href="default.css">
 </head>
 <body>
-    <header class="darkest">
-        <h1>Bullshit Bingo</h1>
-    </header>
-    <main class="content">
-        <div>
-            <div>
-                <button class="new-game" type="submit">New Game</button> 
-            </div>
-            <div class="game-card">
-
+    <header class="darkest header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="bull.svg" alt="Bull Icon" class="icon-image">                    
             </div>
         </div>
+        <div class="title">
+            <h1>Bullshit Bingo</h1>
+            <h2><em>Make meetings fun again!</em></h2>   
+        </div>
+    </header>
+    <main class="content">
+        <div class="dashboard">
+            <div class="dashboard-left">
+                <button class="new-game">New Game</button> 
+                <button class="start-game">Start Game</button>
+            </div>
+            <div class="dashboard-right">
+                <div>Elapsed Time: </div>
+                <div class="elapsed-time" id="elapsed-time">00:00:00</div>                    
+            </div>
+        </div>
+        <div class="game-card" id="game-card"></div>
     </main>
     <footer class="darkest">
         <address>&copy; 2017 Cranky Man</address>

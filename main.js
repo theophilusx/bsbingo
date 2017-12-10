@@ -49,7 +49,7 @@ if (process.env.NODE_ENV != 'production') {
 function createMainWindow() {
     var mainMenu;
 
-    mainWindow = new BrowserWindow({width: 900, height: 600});
+    mainWindow = new BrowserWindow({width: 900, height: 650});
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
@@ -130,6 +130,8 @@ function getGameWords(wordArray, size, blanks) {
         gameWords[id] = undefined;
     }
 
+    console.log(`Returning list of ${gameWords.length}`);
+
     return gameWords;
 }
 
@@ -140,6 +142,10 @@ getWordList('bsbingo.words')
 .then(function(words) {
     // got word list - store 
     bingoWords = words;
+    ipcMain.on('game-request', function(evt, msg) {
+        var game = getGameWords(bingoWords, 15, 7);
+        evt.sender.send('game-data', JSON.stringify(game));
+    });
 })
 .catch(function(err) {
     console.log(`Error: ${err.message}`);
@@ -148,7 +154,3 @@ getWordList('bsbingo.words')
     });
 });
 
-ipcMain.on('game-request', function(evt, msg) {
-    var game = getGameWords(bingoWords, 15, 7);
-    evt.sender.send('game-data', JSON.stringify(game));
-});
