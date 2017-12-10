@@ -1,3 +1,6 @@
+/* jshint esversion: 6, node: true */
+'use strict';
+
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
@@ -51,7 +54,7 @@ function createMainWindow() {
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
-    }))
+    }));
     mainWindow.on('close', function() {
         // For OSX UX consistency, don't quit
         // Set window handler to null
@@ -85,6 +88,9 @@ const {getRandomInt} = require('./util.js');
 const {createReadStream} = require('fs');
 
 // Read file of bingo words. Return array of words
+// Using a Promise to do this is like hunting rabbits with 
+// a bazooka! However, this is deliberate as this functionality 
+// will likely be changed to an ajax call in the future.
 function getWordList(filename) {
     return new Promise(function(resolve, reject) {
         var tmp = "", wordArray = [];

@@ -1,13 +1,18 @@
+/* jslint esversion:6, node: true */
+/* jshint -W117 */
 // Javascript to run in the renderer process
+'use strict';
+
 const {ipcRenderer} = require('electron');
 
 var btn = document.querySelector('button.new-game');
 btn.addEventListener('click', function(e) {
     e.preventDefault();
+    e.stopPropagation();
     ipcRenderer.send('game-request', 'new-game');
 });
 
-function makeGameCell(data, idx) {
+function makeParentCell(data, idx) {
     let cell = document.createElement('div');
     if (data === null) {
         cell.className = 'game-cell blank-cell';
@@ -17,18 +22,32 @@ function makeGameCell(data, idx) {
         } else {
             cell.className = `game-cell darkest cell-${idx}`;
         }
-        let cellData = document.createElement('div');
-        cellData.className = 'cell-data';
-        let cellText = document.createTextNode(data);
-        cellData.appendChild(cellText);
-        cell.appendChild(cellData);
+        cell.id = `cell-${idx}`;
+    }
+    return cell;
+}
+
+function makeDataCell(data, idx) {
+    let cell = document.createElement('div');
+    let cellText = document.createTextNode(data);
+
+    cell.className = `game-data cell-${idx}`;
+    cell.appendChild(cellText);
+    return cell;
+}
+
+function makeGameCell(data, idx) {
+    let cell = makeParentCell(data, idx);
+    if (data !== null) {
+        let cellData = makeDataCell(data, idx);
+        cell.appendChild(cellData);    
     }
     return cell;
 }
 
 ipcRenderer.on('game-data', function(evt, msg) {
     var game = JSON.parse(msg);
-    var gameParent = document.querySelector('div.game-data');
+    var gameParent = document.querySelector('div.game-card');
     gameParent.innerHTML = null;
     var gameRow;
     for (let i=0; i<game.length; i++) {
@@ -38,5 +57,47 @@ ipcRenderer.on('game-data', function(evt, msg) {
             gameParent.appendChild(gameRow);
         }
         gameRow.appendChild(makeGameCell(game[i], i));
+    }
+});
+
+function getCellId(evt) {
+    if (evt.target && evt.target.nodeName == 'DIV') {
+        let cellId = evt.target.className
+                     .split(' ')
+                     .filter(w => w.startsWith('cell-'))[0];
+        console.log('Cell ID string is ' + cellId);
+        return cellId;
+    } else {
+        console.log('Cell is not a game or game data cell' +
+                    evt.target.className);
+    }
+}
+
+function getCell(evt) {
+    var cellId = getCellId(evt);
+
+    console.log(`Cell ID = ${cellId}`);
+
+    if (cellId !== undefined) {
+        return document.getElementById(cellId);
+    }
+}
+
+// deal with completed words
+var gameDiv = document.querySelector('div.game-card');
+gameDiv.addEventListener('click', function(evt) {
+    var cellElement;
+
+    evt.preventDefault();
+    evt.stopPropagation();
+    cellElement = getCell(evt);
+    if (cellElement !== undefined) {
+        console.log(`Game cell clicked ${evt.target.className}`);
+        cellElement.style = 'background-image:url(check-mark.svg);' +
+                            'background-position:right bottom;' +
+                            'background-size:20px;' +
+                            'background-repeat: no-repeat';
+    } else {
+        console.log(`Non-Game Cell Click: ${evt.target.className}`);
     }
 });
