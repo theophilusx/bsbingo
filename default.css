@@ -43,7 +43,7 @@ h2 {
 }
 
 h3 {
-    font-size; 1.5rem;
+    font-size: 1.5rem;
     margin-top: 0;
 }
 
@@ -93,7 +93,7 @@ header h2 {
     max-width: 950px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 20px;
+    padding: 10px;
 }
 
 .column-left {
@@ -108,23 +108,28 @@ header h2 {
     min-height: 175px;
 }
 
+.game-card {
+    width: 90%;
+    padding-top: 10px;
+}
+
 .game-row {
     margin: auto;
     overflow: hidden;
     padding: 0;
-    width: 100%;
-}
+    width: 100%; 
+} 
 
 .game-cell {
     width: 20%; 
     padding: 0;
     margin: 0;
     float: left;
-    min-height: 150px; 
+    min-height: 170px; 
     border: 1px solid green;
  }
 
-.cell-data {
+.game-data {
     width: 80%; 
     margin: 10Vh auto;
     text-align: center;
