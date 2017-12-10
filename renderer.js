@@ -49,14 +49,8 @@ ipcRenderer.on('game-data', function(evt, msg) {
     var game = JSON.parse(msg);
     var gameParent = document.querySelector('div.game-card');
     gameParent.innerHTML = null;
-    var gameRow;
     for (let i=0; i<game.length; i++) {
-        if (i % 5 === 0) {
-            gameRow = document.createElement('div');
-            gameRow.className = 'game-row';
-            gameParent.appendChild(gameRow);
-        }
-        gameRow.appendChild(makeGameCell(game[i], i));
+        gameParent.appendChild(makeGameCell(game[i], i));
     }
 });
 

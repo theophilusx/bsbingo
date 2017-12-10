@@ -90,7 +90,7 @@ header h2 {
 }
 
 .content {
-    max-width: 950px;
+    max-width: 90%;
     margin: 0 auto;
     overflow: hidden;
     padding: 10px;
@@ -108,7 +108,7 @@ header h2 {
     min-height: 175px;
 }
 
-.game-card {
+/* .game-card {
     width: 90%;
     padding-top: 10px;
 }
@@ -118,20 +118,27 @@ header h2 {
     overflow: hidden;
     padding: 0;
     width: 100%; 
-} 
+} */
+
+.game-card {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    margin: 20px;
+}
 
 .game-cell {
     width: 20%; 
     padding: 0;
     margin: 0;
-    float: left;
-    min-height: 170px; 
+    /* float: left; */
+    /* min-height: 170px; */
     border: 1px solid green;
  }
 
 .game-data {
     width: 80%; 
-    margin: 10Vh auto;
+    margin: 6Vh auto;
     text-align: center;
 }
 
