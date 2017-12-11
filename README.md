@@ -2,6 +2,8 @@
 
 This is a very simple implementation of the game "Bullshit Bingo" or as it may be called by those who are offended by words "Buzzword Bingo". It is just like normal Bingo, but instead of numbers, the *card* consists of words which are often heard when listening to fast speaking, slick sales types or pointy haired bosses who are out of their depth, but want to sound knowledgeable.
 
+Watch the below video to get a better idea about Bullshit Bingo!
+
 [![Bullshit Bingo Video](http://img.youtube.com/vi/Dnkow4y1cyw/0.jpg)](http://www.youtube.com/watch?v=Dnkow4y1cyw)
 
 At the end of the day, it is all just a bit of fun. Can't deal or find it offensive, move on. Life is too short to take this crap seriously.
