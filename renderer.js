@@ -1,6 +1,5 @@
 /* jslint esversion:6, node: true */
 /* jshint -W117 */
-// Javascript to run in the renderer process
 'use strict';
 
 const {ipcRenderer} = require('electron');
