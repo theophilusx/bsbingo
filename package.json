@@ -13,7 +13,8 @@
   ],
   "author": "Tim Cross",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "electron": "^1.8.1"
   }
 }

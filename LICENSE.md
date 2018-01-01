@@ -1,6 +1,6 @@
-MIT License
+# MIT License
 
-Copyright (c) 2017 Tim Cross
+Copyright (c) 2017 Tim Cross (Cranky Man)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+The bull icon used in the header is made by [Freepik](http://www.freepik.com) and obtrained from [Flaticon](https://www.flaticon.com/) and is licensed under [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/). 
+
+

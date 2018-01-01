@@ -49,7 +49,7 @@ if (process.env.NODE_ENV != 'production') {
 function createMainWindow() {
     var mainMenu;
 
-    mainWindow = new BrowserWindow({width: 900, height: 650});
+    mainWindow = new BrowserWindow({width: 900, height: 660});
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
