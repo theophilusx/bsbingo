@@ -127,6 +127,13 @@ body {
   background-image: linear-gradient(to bottom right, #073642, #002B36);
 }
 
+.seen-word {
+  background-image: url(check-mark.svg);
+  background-position: right bottom;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+}
+
 .footer {
   background-color: #002B36;
   padding: 2rem 1rem;
