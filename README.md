@@ -36,16 +36,23 @@ Some of the technologies I hope to experiment with as part of this example inclu
 
 I also plan to implement this game using a more traditional web application with client and server. It would be interesting to develop a version using Express and use it to experiment with async techniques and libraries like graphQL etc. As I still prefer Clojure and ClojureScript, I also plan to implement equivalent versions using ClojureScript.
 
-### Other Uses
+## Screenshots
 
-A secondary reason for this repository is to document my own journey with these echnologies and provide some examples which others might find useful. I also hope to document some of this journey as experience has taught me that sometimes, you need to take the wrong road before you find the right one. Personally, I've probably learnt more from what I've done wrong than from what I've done right.
+People like to see screenshots....
 
-I would also encourage comments and feedback. Discussion tends to help expand ideas
-and learn new perspectives. Ideally, I would love to meet up with other developers, but iving in a small city (only 22k population) and being 6+ hours away from any major etropolitan area, finding like minded people locally is hard. Therefore, most of my nteraction is on-line.
+State as of 2nd January, 2018. Basic functionality in place. You can generate a new *game card* and can toggle the *seen* status of words by clicking on them with the mouse. 
+
+![Screenshot 2018-01-02](./Screenshot-2018-01-02.png)
+
 
 ## Installation
 
-Nothing to install yet. Feel free to clone the repo, but don't expect anything signficant just yet!
+At this stage, you can clone the repo and then run the following commands to run the applicaiton. 
+
+```
+npm instrall
+npm start
+```
 
 ### Documentation
 
