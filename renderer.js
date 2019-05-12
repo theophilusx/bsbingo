@@ -1,6 +1,6 @@
 "use strict";
 
-import { ipcRenderer } from "electron";
+const { ipcRenderer } = require("electron");
 
 var btn = document.querySelector("button.new-game");
 btn.addEventListener("click", function(e) {
