@@ -1,9 +1,11 @@
 /* jshint esversion: 6, node: true */
 "use strict";
 
-import electron from "electron";
-import { join } from "path";
-import { format } from "url";
+const electron = require("electron");
+const { join } = require("path");
+const { format } = require("url");
+const { getRandomInt } = require("./util");
+const { createReadStream } = require("fs");
 
 // set environment
 process.env.NODE_ENV = "development";
@@ -55,7 +57,13 @@ if (process.env.NODE_ENV != "production") {
 function createMainWindow() {
   var mainMenu;
 
-  mainWindow = new BrowserWindow({ width: 900, height: 660 });
+  mainWindow = new BrowserWindow({
+    width: 900,
+    height: 660,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
   mainWindow.loadURL(
     format({
       pathname: join(__dirname, "index.html"),
@@ -91,9 +99,6 @@ app.on("activate", function() {
 });
 
 // Game
-
-import { getRandomInt } from "./util.js";
-import { createReadStream } from "fs";
 
 // Read file of bingo words. Return array of words
 // Using a Promise to do this is like hunting rabbits with
