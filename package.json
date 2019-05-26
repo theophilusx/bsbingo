@@ -4,7 +4,8 @@
   "description": "Bullshit Bingo Game",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "build": "tsc --w",
+    "start": "tsc && electron ."
   },
   "keywords": [
     "Game",
@@ -15,6 +16,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "@types/node": "^12.0.2",
     "electron": "^5.0.1"
   }
 }
