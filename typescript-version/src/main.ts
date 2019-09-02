@@ -32,6 +32,7 @@ const createMainWindow = () => {
       nodeIntegration: true
     }
   });
+
   mainWindow.loadURL(
     format({
       pathname: join(__dirname, "index.html"),
