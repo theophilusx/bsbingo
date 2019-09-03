@@ -7,7 +7,14 @@ const {ipcRenderer} = require("electron");
 let btn = document.querySelector("button.new-game");
 let gameDiv = document.querySelector("div.game-card");
 
-function makeGameCell(data, idx) {
+/**
+ * Crweate a word cell in the game board
+ *
+ * @param {string} data - the words for the cell
+ * @param {number} idx - position in list of game words
+ * @returns {Element} The new HTML element
+ */
+const makeGameCell = (data, idx) => {
   let cell = document.createElement("div");
   if (data === null) {
     cell.className = "cell-data blank-cell";
@@ -18,9 +25,9 @@ function makeGameCell(data, idx) {
     cell.appendChild(document.createTextNode(data));
   }
   return cell;
-}
+};
 
-function makeGameCard(parent, words) {
+const makeGameCard = (parent, words) => {
   let row;
   parent.innerHTML = null;
   for (let i = 0; i < words.length; i++) {
@@ -34,24 +41,24 @@ function makeGameCard(parent, words) {
     row.appendChild(makeGameCell(words[i], i));
   }
   parent.appendChild(row);
-}
+};
 
-function getCell(evt) {
+const getCell = evt => {
   let cellId = evt.target.id;
 
   if (cellId !== undefined) {
     return document.getElementById(cellId);
   }
   return undefined;
-}
+};
 
-function toggleSeen(cell) {
+const toggleSeen = cell => {
   if (cell.className.includes("seen-word")) {
     cell.className = "cell-data";
   } else {
     cell.className = "cell-data seen-word";
   }
-}
+};
 
 ipcRenderer.on("game-data", (evt, msg) => {
   let gameWords = JSON.parse(msg);
