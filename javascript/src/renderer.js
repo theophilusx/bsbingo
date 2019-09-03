@@ -1,0 +1,78 @@
+"use strict";
+
+// renderer module
+
+const {ipcRenderer} = require("electron");
+
+let btn = document.querySelector("button.new-game");
+let gameDiv = document.querySelector("div.game-card");
+
+function makeGameCell(data, idx) {
+  let cell = document.createElement("div");
+  if (data === null) {
+    cell.className = "cell-data blank-cell";
+    cell.appendChild(document.createTextNode(""));
+  } else {
+    cell.className = "cell-data";
+    cell.id = `cell-${idx}`;
+    cell.appendChild(document.createTextNode(data));
+  }
+  return cell;
+}
+
+function makeGameCard(parent, words) {
+  let row;
+  parent.innerHTML = null;
+  for (let i = 0; i < words.length; i++) {
+    if (i % 5 === 0) {
+      if (row !== undefined) {
+        parent.appendChild(row);
+      }
+      row = document.createElement("div");
+      row.className = "row";
+    }
+    row.appendChild(makeGameCell(words[i], i));
+  }
+  parent.appendChild(row);
+}
+
+function getCell(evt) {
+  let cellId = evt.target.id;
+
+  if (cellId !== undefined) {
+    return document.getElementById(cellId);
+  }
+  return undefined;
+}
+
+function toggleSeen(cell) {
+  if (cell.className.includes("seen-word")) {
+    cell.className = "cell-data";
+  } else {
+    cell.className = "cell-data seen-word";
+  }
+}
+
+ipcRenderer.on("game-data", (evt, msg) => {
+  let gameWords = JSON.parse(msg);
+  gameDiv.innerHTML = null;
+  makeGameCard(gameDiv, gameWords);
+});
+
+btn.addEventListener("click", e => {
+  e.preventDefault();
+  e.stopPropagation();
+  ipcRenderer.send("game-request", "new-game");
+});
+
+// deal with completed words
+gameDiv.addEventListener("click", evt => {
+  let cellElement;
+
+  evt.preventDefault();
+  evt.stopPropagation();
+  cellElement = getCell(evt);
+  if (cellElement !== undefined) {
+    toggleSeen(cellElement);
+  }
+});

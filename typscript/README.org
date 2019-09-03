@@ -1,0 +1,42 @@
+* BS Bingo (Typescript)
+
+This is the typescript version of the /Bullshit Bingo/ game. I've started with
+this version because it is close to JavaScript and because I'm keen to see how
+it impacts my JavaScript development. 
+
+* Static and Dynamic Typing
+
+I find the debate on static versus dynamic typing to be somewhat simplistic. I
+don't think you can consider this question outside an implementation
+language. My experience has been that in some languages, dynamic typing is
+great, productive and feels /natural/. In other languages, I find it a constant
+challenge which reduces my productivity and often is a source of frustration. It
+simply isn't a binary issue. Likewise, I've used static typed languages which
+worked well and was not at all painful, but I've also experienced the
+opposite. I suspect the real answer lies somewhere in the middle and it will
+depend heavily on the language being used. As this is a personal observation,
+I'm sure others will have totally different experiences. However, at the end of
+the day, all that matters to be is whether my development environment works for
+me or against me. 
+
+My experience with JavaScript has been both positive and negative. There is some
+really bad JavaScript out there, but also some good. The language itself seems
+good. It has all the features I like (higher order functions, closures, lexical
+binding, lambdas etc). However, I have found some aspects annoying or
+frustrating. I hate languages which try to be too helpful (like adding
+semicolons or variable hoisting and automatic type cohesion). I prefer my
+language tells me it doesn't understand what I mean or what to do rather than
+automatically make a guess and merrily continue on. Probably my biggest
+frustration with JavaScript has been related to dynamic typing. Therefore,
+something like TypeScript or Elm or one of the other /typed/ JavaScript dialects
+might be valuable. As TypeScript seems to be the most minimal of these, it seems
+like a good place to start.
+
+* Installation   
+
+#+begin_src shell
+  npm install
+  npm run build
+  npm run start
+
+#+end_src

@@ -1,0 +1,22 @@
+{
+  "name": "bsbingo",
+  "version": "0.0.1",
+  "description": "Bullshit Bingo Game",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc --w",
+    "start": "tsc && node_modules/.bin/electron ."
+  },
+  "keywords": [
+    "Game",
+    "Learning",
+    "Javascript"
+  ],
+  "author": "Tim Cross",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^12.7.3",
+    "electron": "^6.0.6"
+  }
+}
