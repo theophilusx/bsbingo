@@ -7,6 +7,14 @@ const {ipcRenderer} = require("electron");
 let btn = document.querySelector("button.new-game");
 let gameDiv = document.querySelector("div.game-card");
 
+// Current game state
+let currentGame = {
+  start: undefined,
+  end: undefined,
+  words: [],
+  seen: []
+};
+
 /**
  * Crweate a word cell in the game board
  *
@@ -18,6 +26,7 @@ const makeGameCell = (data, idx) => {
   let cell = document.createElement("div");
   if (data === null) {
     cell.className = "cell-data blank-cell";
+    cell.id = `blank-${idx}`;
     cell.appendChild(document.createTextNode(""));
   } else {
     cell.className = "cell-data";
@@ -53,10 +62,19 @@ const getCell = evt => {
 };
 
 const toggleSeen = cell => {
-  if (cell.className.includes("seen-word")) {
-    cell.className = "cell-data";
-  } else {
-    cell.className = "cell-data seen-word";
+  if (
+    cell.className.includes("cell-data") &&
+    !cell.className.includes("blank-cell")
+  ) {
+    console.log(`Cell Classname ${cell.className}`);
+    console.log(`Cell ID: ${cell.id}`);
+    let idx = cell.id.match(/cell-(.*)/)[1];
+    console.log(`IDX: ${idx}`);
+    if (cell.className.includes("seen-word")) {
+      cell.className = "cell-data";
+    } else {
+      cell.className = "cell-data seen-word";
+    }
   }
 };
 
@@ -64,6 +82,13 @@ ipcRenderer.on("game-data", (evt, msg) => {
   let gameWords = JSON.parse(msg);
   gameDiv.innerHTML = null;
   makeGameCard(gameDiv, gameWords);
+  currentGame = {
+    start: undefined,
+    end: undefined,
+    words: gameWords,
+    seen: gameWords.map(w => (w ? false : true))
+  };
+  console.log(currentGame);
 });
 
 btn.addEventListener("click", e => {
