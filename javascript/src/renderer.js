@@ -72,9 +72,12 @@ const toggleSeen = cell => {
     console.log(`IDX: ${idx}`);
     if (cell.className.includes("seen-word")) {
       cell.className = "cell-data";
+      currentGame.seen[idx] = false;
     } else {
       cell.className = "cell-data seen-word";
+      currentGame.seen[idx] = true;
     }
+    console.log(currentGame);
   }
 };
 
