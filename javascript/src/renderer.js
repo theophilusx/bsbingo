@@ -21,26 +21,41 @@ let currentGame = {
   seen: []
 };
 
+// action taken when new game button clicked
 newGameBtn.addEventListener("click", e => {
   e.preventDefault();
   e.stopPropagation();
   ipcRenderer.send("game-request", "new-game");
 });
 
+/**
+ * Starts the game timer
+ */
 const startGame = () => {
   currentGame.start = moment();
   gameTimer = setInterval(updateTimer, 1000);
 };
 
+/**
+ * Called when the game is over to notify the user. 
+ */
 const endNotify = () => {
   alert("Game Over!");
 };
 
+/**
+ * Ends the update of elapased time and runs a function to popup game over 
+ * notification etc. 
+ */
 const endGame = () => {
   clearInterval(gameTimer);
-  setTimeout(endNotify, 1000);
+  setTimeout(endNotify, 500);
 };
 
+/**
+ * Updates the elapsed time display with the time elapsed since the game 
+ * was started.
+ */
 const updateTimer = () => {
   let now = moment();
   let duration = moment.duration(now.diff(currentGame.start));
@@ -49,7 +64,6 @@ const updateTimer = () => {
     duration.minutes(),
     duration.seconds()
   ]);
-  console.log(`Elapsed: ${elapsed}`);
   elapsedTimeDiv.innerHTML = elapsed;
 };
 
@@ -75,22 +89,36 @@ const makeGameCell = (data, idx) => {
   return cell;
 };
 
-const makeGameCard = (parent, words) => {
+/**
+ * Generates a new game card. The card argument is the parent element which 
+ * will hold the card. The words argument is an array of strings representing 
+ * the words to use in generating the card cells.
+ * 
+ * @param {Object} card - the HTML DIV element representing the game card
+ * @param {Array} words - an array of word strings 
+ */
+const makeGameCard = (card, words) => {
   let row;
-  parent.innerHTML = null;
+  card.innerHTML = null;
   for (let i = 0; i < words.length; i++) {
     if (i % 5 === 0) {
       if (row !== undefined) {
-        parent.appendChild(row);
+        card.appendChild(row);
       }
       row = document.createElement("div");
       row.className = "row";
     }
     row.appendChild(makeGameCell(words[i], i));
   }
-  parent.appendChild(row);
+  card.appendChild(row);
 };
 
+/**
+ * Checks the click event to see if the user clicked on a game cell. If the 
+ * target of the event has a cell ID, get the element and return it.
+ * 
+ * @param {event} evt 
+ */
 const getCell = evt => {
   let cellId = evt.target.id;
 
@@ -100,15 +128,18 @@ const getCell = evt => {
   return undefined;
 };
 
+/**
+ * Adds or removes the CSS class seen-words to the DIV representing a cell 
+ * in the game card. 
+ * 
+ * @param {object} cell - an HTML DIV element 
+ */
 const toggleSeen = cell => {
   if (
     cell.className.includes("cell-data") &&
     !cell.className.includes("blank-cell")
   ) {
-    console.log(`Cell Classname ${cell.className}`);
-    console.log(`Cell ID: ${cell.id}`);
     let idx = cell.id.match(/cell-(.*)/)[1];
-    console.log(`IDX: ${idx}`);
     if (cell.className.includes("seen-word")) {
       cell.className = "cell-data";
       currentGame.seen[idx] = false;
@@ -119,10 +150,10 @@ const toggleSeen = cell => {
         endGame();
       }
     }
-    console.log(currentGame);
   }
  };
 
+ // process list of words recieved via IPC
 ipcRenderer.on("game-data", (evt, msg) => {
   let gameWords = JSON.parse(msg);
   gameDiv.innerHTML = null;
@@ -133,12 +164,9 @@ ipcRenderer.on("game-data", (evt, msg) => {
     words: gameWords,
     seen: gameWords.map(w => (w ? false : true))
   };
-  console.log(currentGame);
 });
 
-
-
-
+// action for start game button
 startGameBtn.addEventListener("click", e => {
   e.preventDefault();
   e.stopPropagation();
