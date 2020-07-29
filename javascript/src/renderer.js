@@ -3,9 +3,15 @@
 // renderer module
 
 const {ipcRenderer} = require("electron");
+const moment = require("moment");
+const vsprintf = require("sprintf-js").vsprintf;
 
-let btn = document.querySelector("button.new-game");
+let newGameBtn = document.querySelector("button.new-game");
+let startGameBtn = document.querySelector("button.start-game");
+let elapsedTimeDiv = document.querySelector("div#elapsed-time");
 let gameDiv = document.querySelector("div.game-card");
+
+let gameTimer;
 
 // Current game state
 let currentGame = {
@@ -14,6 +20,39 @@ let currentGame = {
   words: [],
   seen: []
 };
+
+newGameBtn.addEventListener("click", e => {
+  e.preventDefault();
+  e.stopPropagation();
+  ipcRenderer.send("game-request", "new-game");
+});
+
+const startGame = () => {
+  currentGame.start = moment();
+  gameTimer = setInterval(updateTimer, 1000);
+};
+
+const endNotify = () => {
+  alert("Game Over!");
+};
+
+const endGame = () => {
+  clearInterval(gameTimer);
+  setTimeout(endNotify, 1000);
+};
+
+const updateTimer = () => {
+  let now = moment();
+  let duration = moment.duration(now.diff(currentGame.start));
+  let elapsed = vsprintf("%1$02d:%2$02d:%3$02d", [
+    duration.hours(),
+    duration.minutes(),
+    duration.seconds()
+  ]);
+  console.log(`Elapsed: ${elapsed}`);
+  elapsedTimeDiv.innerHTML = elapsed;
+};
+
 
 /**
  * Crweate a word cell in the game board
@@ -76,10 +115,13 @@ const toggleSeen = cell => {
     } else {
       cell.className = "cell-data seen-word";
       currentGame.seen[idx] = true;
+      if (currentGame.seen.every(e => e === true)) {
+        endGame();
+      }
     }
     console.log(currentGame);
   }
-};
+ };
 
 ipcRenderer.on("game-data", (evt, msg) => {
   let gameWords = JSON.parse(msg);
@@ -94,11 +136,15 @@ ipcRenderer.on("game-data", (evt, msg) => {
   console.log(currentGame);
 });
 
-btn.addEventListener("click", e => {
+
+
+
+startGameBtn.addEventListener("click", e => {
   e.preventDefault();
   e.stopPropagation();
-  ipcRenderer.send("game-request", "new-game");
+  startGame();
 });
+
 
 // deal with completed words
 gameDiv.addEventListener("click", evt => {
