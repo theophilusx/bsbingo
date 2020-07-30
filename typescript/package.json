@@ -4,8 +4,10 @@
   "description": "Bullshit Bingo Game",
   "main": "main.js",
   "scripts": {
-    "build": "tsc --w",
-    "start": "tsc && node_modules/.bin/electron ."
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./resources/main.js"
   },
   "keywords": [
     "Game",
@@ -15,8 +17,12 @@
   "author": "Tim Cross",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^14.0.26",
-    "electron": "^9.1.1"
+    "moment": "^2.27.0",
+    "sprintf-js": "^1.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "electron": "^9.1.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.7"
+  }
 }
