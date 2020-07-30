@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./resources",
-    "moduleResolution": "node",
     "module": "commonjs",
-    "allowJs": true,
-    "target": "es6"
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "resources",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "target": "ES6"
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
