@@ -21,6 +21,7 @@
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
+    "@types/sprintf-js": "^1.1.2",
     "electron": "^9.1.2",
     "tslint": "^6.1.2",
     "typescript": "^3.9.7"
