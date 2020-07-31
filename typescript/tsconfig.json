@@ -8,7 +8,8 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "target": "ES6"
+    "target": "ESNext",
+    "declaration": true
   },
   "include": ["src/**/*"]
 }
