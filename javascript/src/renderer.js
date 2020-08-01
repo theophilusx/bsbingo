@@ -21,26 +21,13 @@ let currentGame = {
   seen: []
 };
 
-// action taken when new game button clicked
-newGameBtn.addEventListener("click", e => {
-  e.preventDefault();
-  e.stopPropagation();
-  ipcRenderer.send("game-request", "new-game");
-});
-
 /**
  * Starts the game timer
  */
 const startGame = () => {
   currentGame.start = moment();
+  currentGame.end = undefined;
   gameTimer = setInterval(updateTimer, 1000);
-};
-
-/**
- * Called when the game is over to notify the user. 
- */
-const endNotify = () => {
-  alert("Game Over!");
 };
 
 /**
@@ -49,7 +36,9 @@ const endNotify = () => {
  */
 const endGame = () => {
   clearInterval(gameTimer);
-  setTimeout(endNotify, 500);
+  setTimeout(() => {
+    alert("Game Over");
+  }, 500);
 };
 
 /**
@@ -57,8 +46,8 @@ const endGame = () => {
  * was started.
  */
 const updateTimer = () => {
-  let now = moment();
-  let duration = moment.duration(now.diff(currentGame.start));
+  currentGame.end = moment();
+  let duration = moment.duration(currentGame.end.diff(currentGame.start));
   let elapsed = vsprintf("%1$02d:%2$02d:%3$02d", [
     duration.hours(),
     duration.minutes(),
@@ -66,7 +55,6 @@ const updateTimer = () => {
   ]);
   elapsedTimeDiv.innerHTML = elapsed;
 };
-
 
 /**
  * Crweate a word cell in the game board
@@ -121,7 +109,6 @@ const makeGameCard = (card, words) => {
  */
 const getCell = evt => {
   let cellId = evt.target.id;
-
   if (cellId !== undefined) {
     return document.getElementById(cellId);
   }
@@ -159,20 +146,10 @@ ipcRenderer.on("game-data", (evt, msg) => {
   gameDiv.innerHTML = null;
   makeGameCard(gameDiv, gameWords);
   currentGame = {
-    start: undefined,
-    end: undefined,
     words: gameWords,
     seen: gameWords.map(w => (w ? false : true))
   };
 });
-
-// action for start game button
-startGameBtn.addEventListener("click", e => {
-  e.preventDefault();
-  e.stopPropagation();
-  startGame();
-});
-
 
 // deal with completed words
 gameDiv.addEventListener("click", evt => {
@@ -184,4 +161,18 @@ gameDiv.addEventListener("click", evt => {
   if (cellElement !== undefined) {
     toggleSeen(cellElement);
   }
+});
+
+// action taken when new game button clicked
+newGameBtn.addEventListener("click", e => {
+  e.preventDefault();
+  e.stopPropagation();
+  ipcRenderer.send("game-request", "new-game");
+});
+
+// action for start game button
+startGameBtn.addEventListener("click", e => {
+  e.preventDefault();
+  e.stopPropagation();
+  startGame();
 });
