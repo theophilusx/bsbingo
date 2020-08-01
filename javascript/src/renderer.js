@@ -63,16 +63,16 @@ const updateTimer = () => {
  * @param {number} idx - position in list of game words
  * @returns {Element} The new HTML element
  */
-const makeGameCell = (data, idx) => {
+const makeGameCell = (word, idx) => {
   let cell = document.createElement("div");
-  if (data === null) {
+  if (word === null) {
     cell.className = "cell-data blank-cell";
     cell.id = `blank-${idx}`;
     cell.appendChild(document.createTextNode(""));
   } else {
     cell.className = "cell-data";
     cell.id = `cell-${idx}`;
-    cell.appendChild(document.createTextNode(data));
+    cell.appendChild(document.createTextNode(word));
   }
   return cell;
 };
@@ -126,7 +126,7 @@ const toggleSeen = cell => {
     cell.className.includes("cell-data") &&
     !cell.className.includes("blank-cell")
   ) {
-    let idx = cell.id.match(/cell-(.*)/)[1];
+    let idx = parseInt(cell.id.match(/cell-(.*)/)[1]);
     if (cell.className.includes("seen-word")) {
       cell.className = "cell-data";
       currentGame.seen[idx] = false;
@@ -153,11 +153,9 @@ ipcRenderer.on("game-data", (evt, msg) => {
 
 // deal with completed words
 gameDiv.addEventListener("click", evt => {
-  let cellElement;
-
   evt.preventDefault();
   evt.stopPropagation();
-  cellElement = getCell(evt);
+  let cellElement = getCell(evt);
   if (cellElement !== undefined) {
     toggleSeen(cellElement);
   }
