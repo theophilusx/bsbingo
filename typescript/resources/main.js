@@ -19,6 +19,17 @@ var mainMenuTemplate = [
                 }
             }
         ]
+    },
+    {
+        label: "View",
+        submenu: [
+            {
+                label: "Toggle DevTools",
+                click() {
+                    mainWindow.webContents.toggleDevTools();
+                }
+            }
+        ]
     }
 ];
 const createMainWindow = () => {
@@ -67,17 +78,13 @@ const getWordList = (filename) => {
         let wordArray = [];
         try {
             let wordFile = path_1.join(__dirname, filename);
-            console.log(`Reading words from ${wordFile}`);
             fs_1.readFile(wordFile, { encoding: "utf-8" }, (err, data) => {
-                console.log(err);
                 if (err) {
-                    console.log('Rejecting with file error');
                     return reject(err.message);
                 }
                 if (data === undefined || data.length === 0) {
                     return reject('No word list found');
                 }
-                console.log(`data: ${data}`);
                 wordArray = data.split("\n").filter(w => w.length > 0);
                 resolve(wordArray);
             });
@@ -108,7 +115,6 @@ function getGameWords(words, size, blanks) {
     for (let id of blankSet) {
         gameWords[id] = undefined;
     }
-    console.log(`Returning list of ${gameWords.length}`);
     return gameWords;
 }
 ;
@@ -119,15 +125,13 @@ getWordList("bsbingo.words")
     // got word list - store
     bingoWords = words;
     electron_1.ipcMain.on("game-request", (evt, msg) => {
-        console.log(`Event: game-request Msg: ${msg}`);
         let game = getGameWords(bingoWords, 15, 7);
         evt.sender.send("game-data", JSON.stringify(game));
     });
 })
     .catch((err) => {
-    console.log(`Error: ${err.message}`);
     electron_1.ipcMain.on("game-request", (evt, msg) => {
-        console.log(`Event game-request" Msg: ${msg}`);
         evt.sender.send(JSON.stringify(`Error: ${err.message}`));
     });
 });
+//# sourceMappingURL=main.js.map
