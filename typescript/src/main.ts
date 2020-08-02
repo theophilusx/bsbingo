@@ -21,6 +21,17 @@ var mainMenuTemplate = [
         }
       }
     ]
+  },
+  {
+    label: "View",
+    submenu: [
+      {
+        label: "Toggle DevTools",
+        click() {
+          mainWindow.webContents.toggleDevTools();
+        }
+      }
+    ]
   }
 ];
 
@@ -40,6 +51,7 @@ const createMainWindow = () => {
       slashes: true
     })
   );
+  
   mainWindow.on("close", function () {
     // For OSX UX consistency, don't quit
     // Set window handler to null
@@ -79,17 +91,13 @@ const getWordList = (filename: string) => {
 
     try {
       let wordFile: string = join(__dirname, filename);
-      console.log(`Reading words from ${wordFile}`);
       readFile(wordFile, { encoding: "utf-8" }, (err: Error, data: string) => {
-        console.log(err);
         if (err) {
-          console.log('Rejecting with file error');
           return reject(err.message);
         }
         if (data === undefined || data.length === 0) {
           return reject('No word list found');
         }
-        console.log(`data: ${data}`);
         wordArray = data.split("\n").filter(w => w.length > 0);
         resolve(wordArray);
       }
@@ -124,9 +132,6 @@ function getGameWords(words: string[], size: number, blanks: number): string[] {
   for (let id of blankSet) {
     gameWords[id] = undefined;
   }
-
-  console.log(`Returning list of ${gameWords.length}`);
-
   return gameWords;
 };
 
@@ -138,15 +143,12 @@ getWordList("bsbingo.words")
     // got word list - store
     bingoWords = words;
     ipcMain.on("game-request", (evt: IpcMainEvent, msg: string) => {
-      console.log(`Event: game-request Msg: ${msg}`);
       let game: string[] = getGameWords(bingoWords, 15, 7);
       evt.sender.send("game-data", JSON.stringify(game));
     })
   })
   .catch((err) => {
-    console.log(`Error: ${err.message}`);
     ipcMain.on("game-request", (evt: IpcMainEvent, msg: string) => {
-      console.log(`Event game-request" Msg: ${msg}`);
       evt.sender.send(JSON.stringify(`Error: ${err.message}`));
     });
   });
