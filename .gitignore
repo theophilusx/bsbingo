@@ -2,3 +2,7 @@ node_modules
 .vscode
 .tern-port
 *.map
+out
+dist
+.cache
+.log

@@ -70,7 +70,8 @@ parent repository, but .....
 
 People like to see screenshots....
 
-State as of 2nd January, 2018. Basic functionality in place. You can generate a new *game card* and can toggle the *seen* status of words by clicking on them with the mouse. 
+State as of 6th August 2020, basic plain javascript version based on flex CSS 
+and a basic Typescript version, also using flex CSS, are working. To run, clone the repository, change to the appropriate directory and run npm install. Then execute npm run start. 
 
 ![Screenshot 2018-01-02](./Screenshot-2018-01-02.png)
 
