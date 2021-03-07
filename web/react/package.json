@@ -1,0 +1,31 @@
+{
+  "name": "bsbingo-react",
+  "version": "1.0.0",
+  "description": "React version of Bullshit Bingo",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Tim Cross",
+    "email": "theophilusx@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-asset-copier": "^1.1.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Firefox versions",
+    "last 2 FirefoxAndroid versions"
+  ],
+  "assetsPath": "src/images"
+}
