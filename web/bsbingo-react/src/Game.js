@@ -1,7 +1,9 @@
 import React from "react";
 import GameRow from "./GameRow";
+import wordList from "./words";
 
 function Game() {
+  console.dir(wordList);
   let words = [
     ["one", "two", "three", "four", "five"],
     ["six", "seven", "eight", "nine", "ten"],
