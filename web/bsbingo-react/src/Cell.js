@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Cell({ word, idx }) {
-  let cls = `cell-data ${word ? "" : "blank-cell"}`;
+function Cell({ entry, dispatch }) {
+  let [word] = useState(entry);
+  let [seen, setSeen] = useState(word ? false : true);
 
   return (
-    <div className={cls} id={`cell-${idx}`}>
-      {word}{" "}
+    <div
+      className={`cell-data ${word ? "" : "blank-cell"} ${
+        word && seen ? "seen-word" : ""
+      }`}
+      onClick={() => {
+        setSeen(!seen);
+        dispatch(
+          seen ? { type: "unseen", word: word } : { type: "seen", word: word }
+        );
+      }}
+    >
+      {word ? word : ""}
     </div>
   );
 }

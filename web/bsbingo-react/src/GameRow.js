@@ -1,11 +1,11 @@
 import React from "react";
 import Cell from "./Cell";
 
-function GameRow({ words }) {
+function GameRow({ group, dispatch }) {
   return (
     <div className="row">
-      {words.map((word, idx) => (
-        <Cell key={idx} word={word} idx={idx} />
+      {group.map((word, idx) => (
+        <Cell key={idx} entry={word} dispatch={dispatch} />
       ))}
     </div>
   );
