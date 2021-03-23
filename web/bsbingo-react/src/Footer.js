@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <footer className="footer">
-      <p className="copyright">&copy; 2017 Cranky Man</p>
+      <p className="copyright">&copy; 2021 Tim Cross</p>
       <p className="icon-copyright">
         Bull icon made by <a href="http://www.freepik.com"> Freepik </a>
         from <a href="https://www.flaticon.com/"> www.flaticon.com </a>
