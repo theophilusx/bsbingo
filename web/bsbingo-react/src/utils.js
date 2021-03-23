@@ -1,3 +1,5 @@
+//import { DateTime } from "luxon";
+
 export function partition(size, data) {
   let result = [];
   let group = [];
@@ -35,11 +37,19 @@ export function newGame(wordList, size, blanks) {
   for (let i of blankIdxSet) {
     words[i] = undefined;
   }
-  return {
-    words,
-    size,
-    blanks,
-    seen: [],
-    complete: false,
-  };
+  return words;
+}
+
+export function formatDuration(start, end) {
+  if (end) {
+    let { hours, minutes, seconds } = end
+      .diff(start, ["hours", "minutes", "seconds"])
+      .toObject();
+    seconds = Math.round(seconds);
+    console.log(`Hours: ${hours} Minutes: ${minutes} Seconds: ${seconds}`);
+    return `${hours < 10 ? `0${hours}` : hours}:${
+      minutes < 10 ? `0${minutes}` : minutes
+    }:${seconds < 10 ? `0${seconds}` : seconds}`;
+  }
+  return "00:00:00";
 }

@@ -1,46 +1,30 @@
-import React, { useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import GameRow from "./GameRow";
-import { newGame, partition } from "./utils";
-import { words } from "./words";
+import { partition } from "./utils";
 
-const initialGame = newGame(words, 20, 5);
+function Game({ gameWords, seenWordDispatch }) {
+  let [row1, setRow1] = useState([]);
+  let [row2, setRow2] = useState([]);
+  let [row3, setRow3] = useState([]);
+  let [row4, setRow4] = useState([]);
+  let [row5, setRow5] = useState([]);
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "seen":
-      return {
-        ...state,
-        seen: [...state.seen, action.word],
-        complete:
-          state.seen.length + 1 === state.size - state.blanks ? true : false,
-      };
-    case "unseen":
-      return {
-        ...state,
-        seen: state.seen.filter((w) => w !== action.word),
-        complete:
-          state.seen.length - 1 === state.size - state.blanks ? true : false,
-      };
-    case "new":
-      return newGame(words, 20, 5);
-    default:
-      throw new Error(`Unknown dispatcher action: ${action.type}`);
-  }
-}
-
-function Game() {
-  let [game, dispatch] = useReducer(reducer, initialGame);
+  useEffect(() => {
+    let groups = partition(5, gameWords);
+    setRow1(groups[0]);
+    setRow2(groups[1]);
+    setRow3(groups[2]);
+    setRow4(groups[3]);
+    setRow5(groups[4]);
+  }, [gameWords]);
 
   return (
     <>
-      <div>
-        <p>Seen: {JSON.stringify(game.seen, null, " ")}</p>
-        <p>Complete: {game.complete ? "true" : "false"}</p>
-      </div>
       <div className="card">
-        {partition(5, game.words).map((group, idx) => (
-          <GameRow key={idx} group={group} dispatch={dispatch} />
-        ))}
+        <GameRow group={row1} seenWordDispatch={seenWordDispatch} />
+        <GameRow group={row2} seenWordDispatch={seenWordDispatch} />
+        <GameRow group={row3} seenWordDispatch={seenWordDispatch} />
+        <GameRow group={row4} seenWordDispatch={seenWordDispatch} />
       </div>
     </>
   );
