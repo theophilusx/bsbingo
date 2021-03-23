@@ -1,4 +1,4 @@
-//import { DateTime } from "luxon";
+import { DateTime } from "luxon";
 
 export function partition(size, data) {
   let result = [];
@@ -41,15 +41,22 @@ export function newGame(wordList, size, blanks) {
 }
 
 export function formatDuration(start, end) {
-  if (end) {
+  if (start && end) {
     let { hours, minutes, seconds } = end
       .diff(start, ["hours", "minutes", "seconds"])
       .toObject();
     seconds = Math.round(seconds);
-    console.log(`Hours: ${hours} Minutes: ${minutes} Seconds: ${seconds}`);
     return `${hours < 10 ? `0${hours}` : hours}:${
       minutes < 10 ? `0${minutes}` : minutes
     }:${seconds < 10 ? `0${seconds}` : seconds}`;
   }
   return "00:00:00";
+}
+
+export function strToKey(str) {
+  try {
+    return str.replace(" ", "_");
+  } catch (e) {
+    return `bad_key_${DateTime.now().toMillis()}${getRandomInt(0, 1000)}`;
+  }
 }
