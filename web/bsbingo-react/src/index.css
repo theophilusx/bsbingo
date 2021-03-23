@@ -140,7 +140,7 @@ body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 a {
