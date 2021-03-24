@@ -7,29 +7,40 @@ import Game from "./Game";
 import { newGame } from "./utils";
 import { words } from "./words";
 
-function seenWordReducer(state, action) {
+function gameReducer(state, action) {
   switch (action.type) {
     case "add":
-      return [...state, action.payload];
+      return {
+        words: state.words,
+        seen: [...state.seen, action.payload],
+      };
     case "remove":
-      return state.filter((w) => w !== action.payload);
-    case "reset":
-      return [];
+      return {
+        words: state.words,
+        seen: state.seen.filter((w) => w !== action.payload),
+      };
+    case "new":
+      return {
+        words: newGame(words, 20, 5),
+        seen: [],
+      };
     default:
-      throw new Error(`seenWordReducer: Unknown action type: ${action.type}`);
+      throw new Error(`gameReducer: Unknown action type: ${action.type}`);
   }
 }
 
 function App() {
   let [gameState, setGameState] = useState("stopped");
-  let [gameWords, setGameWords] = useState(newGame(words, 20, 5));
-  let [seenWords, seenWordDispatch] = useReducer(seenWordReducer, []);
+  let [game, gameDispatch] = useReducer(gameReducer, {
+    words: newGame(words, 20, 5),
+    seen: [],
+  });
 
   useEffect(() => {
-    if (seenWords.length === 15) {
+    if (game.seen.length === 15) {
       setGameState("complete");
     }
-  }, [seenWords]);
+  }, [game]);
 
   return (
     <div>
@@ -38,11 +49,10 @@ function App() {
         <Dashboard
           gameState={gameState}
           setGameState={setGameState}
-          setGameWords={setGameWords}
-          seenWordDispatch={seenWordDispatch}
+          gameDispatch={gameDispatch}
         />
         <div className="game-card" id="game-card">
-          <Game gameWords={gameWords} seenWordDispatch={seenWordDispatch} />
+          <Game game={game} gameDispatch={gameDispatch} />
         </div>
       </main>
       <Footer />

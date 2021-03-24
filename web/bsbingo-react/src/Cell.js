@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-function Cell({ entry, seenWordDispatch }) {
-  let [word, setWord] = useState(entry);
-  let [seen, setSeen] = useState(word ? false : true);
+function Cell({ entry, gameDispatch }) {
+  let [seen, setSeen] = useState(false);
 
   useEffect(() => {
-    setWord(entry);
     setSeen(false);
   }, [entry]);
 
   return (
     <div
-      className={`cell-data ${word ? "" : "blank-cell"} ${
-        word && seen ? "seen-word" : ""
+      className={`cell-data ${entry ? "" : "blank-cell"} ${
+        entry && seen ? "seen-word" : ""
       }`}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         setSeen(!seen);
-        seenWordDispatch(
+        gameDispatch(
           seen
-            ? { type: "remove", payload: word }
-            : { type: "add", payload: word }
+            ? { type: "remove", payload: entry }
+            : { type: "add", payload: entry }
         );
       }}
     >
-      {word ? word : ""}
+      {entry ? entry : ""}
     </div>
   );
 }

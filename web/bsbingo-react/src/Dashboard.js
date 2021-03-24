@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { formatDuration, newGame } from "./utils";
+import { formatDuration } from "./utils";
 import { DateTime } from "luxon";
-import { words } from "./words";
 
-function Dashboard({
-  gameState,
-  setGameState,
-  setGameWords,
-  seenWordDispatch,
-}) {
+function Dashboard({ gameState, setGameState, gameDispatch }) {
   let [startTime, setStartTime] = useState(DateTime.now());
   let [endTime, setEndTime] = useState(DateTime.now());
   let [timer, setTimer] = useState(undefined);
@@ -35,8 +29,7 @@ function Dashboard({
             e.preventDefault();
             e.stopPropagation();
             setGameState("stopped");
-            setGameWords(newGame(words, 20, 5));
-            seenWordDispatch({ type: "reset" });
+            gameDispatch({ type: "new" });
           }}
         >
           New Game
