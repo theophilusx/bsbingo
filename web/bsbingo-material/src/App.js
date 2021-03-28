@@ -8,12 +8,8 @@ function App() {
   return (
     <>
       <Header />
-      <Grid container spacing={3} justify="center" style={{ padding: 170 }}>
-        <Grid item>
-          <Dashboard />
-          <Game />
-        </Grid>
-      </Grid>
+      <Dashboard />
+      <Game />
     </>
   );
 }

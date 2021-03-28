@@ -1,19 +1,19 @@
 import React from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Toolbar } from "@material-ui/core";
 
 function Dashboard() {
   return (
-    <Grid container direction="row" spacing={10}>
-      <Grid item>
+    <Toolbar>
+      <div>
         <Button>New Game</Button>
-      </Grid>
-      <Grid item>
+      </div>
+      <div>
         <Button>Start Game</Button>
-      </Grid>
-      <Grid item>
+      </div>
+      <div>
         <div>Elapsed Time</div>
-      </Grid>
-    </Grid>
+      </div>
+    </Toolbar>
   );
 }
 

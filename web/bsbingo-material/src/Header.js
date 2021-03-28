@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "./bull.svg";
-import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
+import { Paper, Toolbar, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -21,7 +21,7 @@ export function Header() {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" color="inherit">
+    <Paper>
       <Toolbar>
         <div>
           <img src={Logo} alt="logo" className={classes.logo} />
@@ -35,7 +35,7 @@ export function Header() {
           </Typography>
         </div>
       </Toolbar>
-    </AppBar>
+    </Paper>
   );
 }
 
