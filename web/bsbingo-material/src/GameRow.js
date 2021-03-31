@@ -1,21 +1,24 @@
 import React from "react";
 import Cell from "./Cell";
 import { Grid } from "@material-ui/core";
+import { strToKey } from "./utils";
 
-function GameRow() {
+function GameRow({ group, gameDispatch }) {
   return (
     <Grid
       container
       direction="row"
-      justify="space-around"
-      alignment="center"
-      spacing={2}
+      justify="center"
+      alignItems="stretch"
+      spacing={0}
     >
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
+      {group.map((word, idx) => (
+        <Cell
+          key={strToKey(word ? word : `blank_${idx}`)}
+          entry={word}
+          gameDispatch={gameDispatch}
+        />
+      ))}
     </Grid>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "./bull.svg";
-import { Paper, Toolbar, Typography, makeStyles } from "@material-ui/core";
+import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
+import theme from "./theme";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -18,24 +19,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Header() {
-  const classes = useStyles();
+  const classes = useStyles(theme);
 
   return (
-    <Paper>
-      <Toolbar>
-        <div>
-          <img src={Logo} alt="logo" className={classes.logo} />
-        </div>
-        <div>
-          <Typography variant="h3" component="h1" className={classes.title}>
-            Bullshit Bingo
-          </Typography>
-          <Typography variant="h6" component="h3" className={classes.subtitle}>
-            Make meetings fun again!
-          </Typography>
-        </div>
-      </Toolbar>
-    </Paper>
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      component={Paper}
+    >
+      <Grid item>
+        <img src={Logo} alt="logo" className={classes.logo} />
+      </Grid>
+      <Grid item>
+        <Typography variant="h3" component="h1" className={classes.title}>
+          Bullshit Bingo
+        </Typography>
+        <Typography variant="h6" component="h3" className={classes.subtitle}>
+          Make meetings fun again!
+        </Typography>
+      </Grid>
+    </Grid>
   );
 }
 
