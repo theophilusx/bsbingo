@@ -17,7 +17,7 @@
   "author": "Tim Cross",
   "license": "MIT",
   "dependencies": {
-    "electron": "^12.0.1",
+    "electron": "^16.2.0",
     "moment": "^2.27.0",
     "sprintf-js": "^1.1.2",
     "typescript": "^4.2.3"
