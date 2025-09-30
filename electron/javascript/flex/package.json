@@ -45,7 +45,11 @@
     }
   },
   "dependencies": {
+<<<<<<< HEAD
     "electron": "^13.1.7",
+=======
+    "electron": "^35.7.5",
+>>>>>>> c69798ec8769d473a0a0f27b85131e5cfd73c639
     "electron-squirrel-startup": "^1.0.0",
     "moment": "^2.27.0",
     "sprintf-js": "^1.1.2"
